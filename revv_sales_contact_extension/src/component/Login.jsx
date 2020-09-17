@@ -6,15 +6,36 @@ export default class Login extends Component{
         super(props);
         this.state = {
 
-            loginId = "",
-            password = ""
+            loginId: "",
+            password: "",
+            orgdomain: ""
         }
     }
 
     handleSubmit = (e)=>{
         e.preventDefault();
-        const {loginId,password} = this.state
-        axios.post("https://api.revvsales.com/api/v2/auth/initiate-auth")
+        const {loginId,password,orgdomain} = this.state
+        console.log(loginId,password,orgdomain)
+        let url = 'https://api.revvsales.com/api/v2/auth/initiate-auth?'
+        const options = {
+            headers: {'Content-Type': 'application/json',
+            GrantType: 'password'}
+          };
+        axios.post(url,
+            
+            {
+              user_email: loginId,
+              password: password,
+              org_domain: orgdomain
+            },
+            options
+          )
+        .then(res=>{
+            console.log(res)
+        })
+        .catch(err=>{
+            console.log(err)
+        })
     }
 
     render(){
@@ -36,6 +57,14 @@ export default class Login extends Component{
                         placeholder="Put Your Password..."
                         onChange={(e)=>this.setState({
                             password:e.target.value
+                        })}/>
+                    </div>
+                    <div>
+                        <label htmlFor="orgdomain">Org Domain:</label>
+                        <input type="text" name="orgdomain" value={this.state.orgdomain}
+                        placeholder="Put Your Password..."
+                        onChange={(e)=>this.setState({
+                            orgdomain:e.target.value
                         })}/>
                     </div>
                     <div>
