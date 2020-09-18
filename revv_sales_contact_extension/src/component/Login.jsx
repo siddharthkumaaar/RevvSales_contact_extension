@@ -1,5 +1,15 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import styles from './login.module.css'
+import {AuthContext} from './AuthContextProvider'
+import {
+    Router,
+    Link,
+    goBack,
+    goTo,
+    popToTop
+  } from "react-chrome-extension-router";
+import BtnCompo from './BtnCompo';
 
 export default class Login extends Component{
     constructor(props){
@@ -8,15 +18,20 @@ export default class Login extends Component{
 
             loginId: "",
             password: "",
-            orgdomain: ""
+            orgdomain: "",
+            first_name: "",
+            last_name: "",
+            access_token1: "",
+            refresh_token:""
         }
     }
 
     handleSubmit = (e)=>{
         e.preventDefault();
+        const {handleSubmitt} = this.context
         const {loginId,password,orgdomain} = this.state
         console.log(loginId,password,orgdomain)
-        let url = 'https://api.revvsales.com/api/v2/auth/initiate-auth?'
+        let url = 'https://cors-anywhere.herokuapp.com/https://api.revvsales.com/api/v2/auth/initiate-auth?'
         const options = {
             headers: {'Content-Type': 'application/json',
             GrantType: 'password'}
@@ -31,7 +46,21 @@ export default class Login extends Component{
             options
           )
         .then(res=>{
-            console.log(res)
+            const {first_name,last_name,access_token,refresh_token} = res.data.User
+            // console.log(res.data.User)
+            // const {access_token1} = this.state
+            this.setState({
+                first_name:first_name,
+                last_name: last_name,
+                access_token1: access_token,
+                refresh_token: refresh_token
+            })
+            handleSubmitt(this.state.access_token1)
+            if(this.state.access_token1)
+            {
+                const token = this.state.access_token1
+               goTo(BtnCompo,{token})
+            }
         })
         .catch(err=>{
             console.log(err)
@@ -39,6 +68,8 @@ export default class Login extends Component{
     }
 
     render(){
+        const {first_name,last_name,access_token,refresh_token} = this.state
+        // console.log(first_name,access_token,last_name,refresh_token)
         return(
 
             <div>
@@ -62,17 +93,22 @@ export default class Login extends Component{
                     <div>
                         <label htmlFor="orgdomain">Org Domain:</label>
                         <input type="text" name="orgdomain" value={this.state.orgdomain}
-                        placeholder="Put Your Password..."
+                        placeholder="Put Your Sub Domain..."
                         onChange={(e)=>this.setState({
                             orgdomain:e.target.value
                         })}/>
                     </div>
                     <div>
-                        <input type="submit" name="LOGIN"/>
+                        <input type="submit" value="LOGIN"/>
                     </div>
                 </form>
+                {/* <div>
+                    {access_token ? window.open():"sorry"}
+                </div> */}
             </div>
         )
     }
 
 }
+
+Login.contextType = AuthContext

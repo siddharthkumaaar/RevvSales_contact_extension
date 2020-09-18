@@ -1,0 +1,40 @@
+form{
+    border: 1px solid aquamarine;
+    max-width: 320px;
+    margin: auto;
+    margin-top: 30px;
+    padding: 50px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    background-color: aquamarine;
+    box-shadow: 5px 10px 30px #888888;
+}
+
+form > div{
+    margin: 20px;
+}
+
+.box{
+    display: flex;
+    flex-direction: column;
+}
+
+.btn1{
+    padding: 10px;
+    width: 200px;
+    color: black;
+    background-color:lightgreen;
+}
+.btn2{
+    padding: 10px;
+    width: 200px;
+    color: black;
+    background-color:lightblue;
+}
+.btn3{
+    padding: 10px;
+    width: 200px;
+    color: black;
+    background-color:lightsalmon;
+}
