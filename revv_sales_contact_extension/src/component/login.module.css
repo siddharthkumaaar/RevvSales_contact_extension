@@ -25,16 +25,25 @@ form > div{
     width: 200px;
     color: black;
     background-color:lightgreen;
+    border-radius: 10px;
+    border:none;
+    margin: 5px;
 }
 .btn2{
     padding: 10px;
     width: 200px;
     color: black;
     background-color:lightblue;
+    border-radius: 10px;
+    border:none;
+    margin: 5px;
 }
 .btn3{
     padding: 10px;
     width: 200px;
     color: black;
     background-color:lightsalmon;
+    border-radius: 10px;
+    border:none;
+    margin: 5px;
 }

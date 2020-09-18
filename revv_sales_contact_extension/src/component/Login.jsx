@@ -22,7 +22,8 @@ export default class Login extends Component{
             first_name: "",
             last_name: "",
             access_token1: "",
-            refresh_token:""
+            refresh_token:"",
+            err:""
         }
     }
 
@@ -64,6 +65,9 @@ export default class Login extends Component{
         })
         .catch(err=>{
             console.log(err)
+            this.setState({
+                err:err
+            })
         })
     }
 
@@ -102,9 +106,9 @@ export default class Login extends Component{
                         <input type="submit" value="LOGIN"/>
                     </div>
                 </form>
-                {/* <div>
-                    {access_token ? window.open():"sorry"}
-                </div> */}
+                <div>
+                    {this.state.err ? "Check Input Credentials....!": ""}
+                </div>
             </div>
         )
     }

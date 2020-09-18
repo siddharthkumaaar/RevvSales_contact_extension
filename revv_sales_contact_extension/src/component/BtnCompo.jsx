@@ -9,6 +9,7 @@ import {
   } from "react-chrome-extension-router";
 import Login from './Login';
 import GetContact from './GetContact';
+import ContactForm from './ContactForm';
 export default class BtnCompo extends Component{
 
     handleLogout = ()=>{
@@ -21,6 +22,11 @@ export default class BtnCompo extends Component{
         goTo(GetContact,{token})
     }
 
+    handleCreate = ()=>{
+        const {token} = this.props
+        goTo(ContactForm,{token})
+    }
+
     render(){
 
         return(
@@ -29,7 +35,7 @@ export default class BtnCompo extends Component{
                     <button className={styles.btn1} onClick={this.handleContactList}>Conatct List</button>
                 </div>
                 <div>
-                    <button className={styles.btn2}>Create Conatct</button>
+                    <button className={styles.btn2} onClick={this.handleCreate}>Create Conatct</button>
                 </div>
                 <div>
                     <button className={styles.btn3} onClick={this.handleLogout}>Log Out</button>
